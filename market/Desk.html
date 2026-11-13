@@ -1,0 +1,19 @@
+{{ block title }}Reinsurance market{{ endblock }}
+{{ block content }}
+<!-- The page contains no embedded private data. oTree identifies the login on each
+     live request. Reopening this URL rebuilds the desk from durable server state. -->
+<link rel="stylesheet" href="{{ static 'market/desk.css' }}">
+<div id="status" role="status">Connecting to your team desk…</div>
+<main id="desk"></main>
+<script src="{{ static 'market/desk.js' }}"></script>
+<script>
+// Refresh on first load and reconnect; explicit Refresh preserves deliberate review.
+// A team never advances to a new oTree page by pressing Enter while editing a field.
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('form')?.addEventListener('submit', e => e.preventDefault());
+    liveSocket.addEventListener('open', () => liveSend({op:'sync'}));
+    if (liveSocket.readyState === 1) liveSend({op:'sync'});
+});
+function liveRecv(message) { renderTeam(message); }
+</script>
+{{ endblock }}

@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Instructor · Reinsurance market</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/desk.css">
+</head><body class="console"><h1>Instructor market desk</h1>
+<!-- Only the authenticated loopback service serves this document and its CSV links. -->
+<label>Session <select id="sessions"></select></label> <button onclick="location.reload()">Reload sessions</button>
+<p id="status" role="status"></p><main id="desk"></main><script src="/desk.js"></script>
+<script>
+// Session selection is explicit. Every mutation carries the revision displayed at click time.
+const sessions=document.getElementById('sessions');
+async function adminRequest(payload) {
+    const session=sessions.value;
+    if (!session) return;
+    try {
+        const request=payload ? {method:'POST',headers:{'Content-Type':'application/json','X-Market-Action':'instructor'},body:JSON.stringify(payload)} : {};
+        const res=await fetch('/market/'+encodeURIComponent(session),request);
+        if (!res.ok) throw Error('Could not access session. Refresh and sign in again.');
+        const msg=await res.json();
+        if(session===sessions.value) renderAdmin(msg,session);
+    } catch(e) {document.getElementById('status').textContent=e.message;}
+}
+sessions.onchange=()=>adminRequest();
+fetch('/sessions').then(r=>r.json()).then(ids=>{
+    for(const id of ids) sessions.add(new Option(id,id));
+    if(ids.length) adminRequest(); else document.getElementById('status').textContent='Create a session in oTree administration, then reload sessions.';
+});
+</script></body></html>

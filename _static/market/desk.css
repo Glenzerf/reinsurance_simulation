@@ -1,0 +1,19 @@
+/* Compact laptop desk: scroll wide ticket books locally; allow forms to wrap. */
+#desk, .console {font:16px/1.5 system-ui,sans-serif;color:#182f35}
+.console {max-width:1160px;margin:2rem auto;padding:0 1rem;background:#fafbf9}
+#desk section {margin:1rem 0;padding:1rem;background:white;border:1px solid #cad8d4;border-radius:6px;overflow:auto}
+#desk button,.console button {background:#18534e;color:white;border:0;border-radius:4px;padding:.35rem .7rem;margin:.2rem;cursor:pointer}
+#desk label {display:inline-flex;flex-direction:column;margin:.3rem .55rem .3rem 0;font-size:.9rem}
+#desk input,#desk select,.console select {padding:.25rem;border:1px solid #93a4a0;border-radius:3px;max-width:15rem}
+#desk input[type=number] {width:8rem}
+#desk table {border-collapse:collapse;font-size:.9rem;width:100%}
+#desk td,#desk th {border-bottom:1px solid #dce5e1;padding:.3rem;text-align:left;vertical-align:top}
+#desk h2 {font-size:1.25rem;margin:.25rem 0 .6rem}
+#desk p {white-space:pre-line}
+#status {color:#774319;font-weight:600;min-height:1.5em}
+#desk summary {cursor:pointer;font-weight:600}
+/* Navigation reflects the active decision view without exposing hidden role data. */
+#desk nav {margin-top:.6rem;border-top:1px solid #cfdbd7;padding-top:.4rem}
+#desk nav button {background:#edf3f1;color:#194940}
+#desk nav button[aria-pressed=true] {background:#18534e;color:#fff}
+#desk section[hidden] {display:none}
